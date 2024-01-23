@@ -1,0 +1,118 @@
+html{
+    height:100vh;
+    width:100%;
+    overflow: hidden;
+}
+body{
+    height:100vh;
+    width:100%;
+    text-align: center;
+    margin:0px;
+}
+#main{
+    height:100vh;
+    width:100%;
+    filter:blur(5px);
+}
+h1{
+    padding-top:5%;
+    padding-bottom:5%;
+    font-family: 'Meie Script', cursive;
+    font-weight: normal;
+    font-size:5em;
+    width: 100%;
+    background-color: #6f6250;
+    margin: 0px;
+    color: white;
+}
+
+#allAlbums{
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 1.25%;
+    margin-top: 1.25%;
+}
+
+#allAlbums>#album{
+    padding: 1%;
+    border-radius: 5px;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
+    background-color: #dddddd;
+    margin: 0.25%;
+    font-family: 'Playfair Display', serif;
+}
+
+
+#allAlbums>#album:hover{
+    background-color: #6f62506b;
+}
+
+#photos{
+    background-color: #6f62506b;
+    height:100vh;
+}
+
+#photos>img{
+    height: 15vh;
+    width:auto;
+    margin:2%;
+}
+#plus{
+    background-image: url("./images/plus\ \(1\).png");
+    background-size: contain;
+    width: 33px; /* Largeur souhaitée */
+    height: 29px;
+    background-repeat: no-repeat;
+    margin-left: 0.2%;
+    cursor: pointer;
+}
+#plus:hover {
+
+    background-image: url("./images/plus.png");
+}
+
+#fen_form{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(150, 140, 131, 0.5); /* Exemple de couleur semi-transparente rouge */
+    z-index: 9999;
+
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#fen_form>form{
+    padding:20px;
+    background-color: white;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+h3{
+    font-weight: normal;
+    font-size: 25px;
+}
+
+#fen_form>form>input{
+    padding: 15px;
+    margin: 7px;
+    border-radius: 5px;
+    border: none;
+    text-align: center;
+    background-color: #bbb5a8;
+}
+
+#valider{
+    background-color: ;
+}
