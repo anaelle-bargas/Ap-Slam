@@ -1,5 +1,8 @@
 import java.io.PrintStream;
 import java.util.Scanner;
+import java.util.Arrays;
+import java.util.Random;
+
 
 public class age {
     public static PrintStream output = new PrintStream(System.out);
@@ -14,8 +17,133 @@ public class age {
         // parc(16, 18);
         // categorie(12);
         // carresParfaits(36);
-        multiplications(6);
+        // multiplications(6);
+        // estPremier(4);
+        // civilite();
+        // deviner();
+        // int[] tab = {1, 2, 3, 4, 5, 6};
+        // output.println(inverser(tab));
+        // int[] tab1 = {1,2,3,4,5};
+        // int[] tab2 = {1,2,3,4,5};
+        // output.println(egaux(tab1, tab2));
+        int[][] tab = {
+            {8,1,6},
+            {3,5,7},
+            {4,9,2},
+        };
+        output.println(carreMagique(tab));
 
+
+    }
+
+    
+    public static Boolean carreMagique(int[][] tab){
+        int somme_values = 0;
+        for(int i=0;i<tab.length;i++){
+            somme_values+=tab[0][i];
+        }
+
+        for(int i=1;i<tab.length;i++){
+            int somme_values_ligne = 0;
+            int somme_values_colonne = 0;
+            // int somme_diagonale1=tab[0][0]+tab[tab.length-1][tab.length-1];
+            // int somme_diagonale2=tab[0][tab.length-1]+tab[tab.length-1][0];
+            int somme_diagonale1 =0;
+            int somme_diagonale2=0;
+            for(int j=0;j<tab.length;j++){
+                somme_values_ligne+=tab[i][j];
+                somme_values_colonne+=tab[j][i];
+                if((i-1)==j){
+                    somme_diagonale1+=tab[(i-1)][j];
+                    somme_diagonale2+=tab[(i-1)][tab.length-j];
+                    output.println(somme_diagonale1);
+                    output.println(somme_diagonale2);
+                }
+            }
+            if(somme_values_ligne!=somme_values || somme_values_colonne != somme_values || somme_diagonale1!=somme_values || somme_diagonale2!=somme_values){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static Boolean egaux(int[] tab1, int[] tab2){
+        if(tab1.length == tab2.length){
+            for(int i=0; i<tab1.length;i++){
+                if(tab1[i]!=tab2[i]){
+                    return false;
+                }
+            }
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public static String inverser( int[] tab){
+        for(int i = 0; i<=(tab.length/2)-1; i++){
+            int prem_valeur = tab[i];
+            int der_valeur = tab[tab.length-i-1];
+            tab[tab.length-i-1]=prem_valeur;
+            tab[i] = der_valeur;
+        }
+        return Arrays.toString(tab);
+    }
+
+    public static String deviner(){
+        int answer;
+        Random randomGenerator = new Random();
+        int nb = randomGenerator.nextInt(1000)+1;
+        do{
+            output.println("Devine un nombre entier entre 1 et 1000 : ");
+            answer = input.nextInt();
+            if(answer < nb){
+                output.println("Trop petit !");
+
+            }
+            else if(answer>nb){
+                output.println("Trop grand !");
+            }
+            else{
+                return "Gagne !";
+            }
+        }while(answer!=nb);
+
+        return "";
+    }
+
+    public static String civilite(){
+        char answer;
+
+        do {
+            output.println("Etes-vous un homme ou une femme ? Repondez soit H, soit F");
+            answer = input.nextLine().charAt(0);
+            
+        } while (answer != 'H' && answer != 'F');
+        
+        
+        
+        return "Vous etes : "+answer;
+
+
+    }
+
+    public static Boolean estPremier(int nb){
+        if(nb>=0){
+            Boolean prime = true;
+            Double sr= Math.sqrt(nb);
+            for(int i =2;i<=sr;i++){
+                if(nb % i == 0){
+                    prime=false;
+                }
+            }
+            return prime;
+        }
+        else{
+            output.println("Le nb entré en paramètres doit être un entier positif");
+            return false;
+        }
     }
 
     public static void age(){
@@ -148,7 +276,7 @@ public class age {
                 output.println(nb*i);
             }
         }else{
-            output.println("le nb mis en argment doit êre compris entre 1 et 12");
+            output.println("le nb mis en argument doit êre compris entre 1 et 12");
         }
 
 
