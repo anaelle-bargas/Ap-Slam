@@ -42,6 +42,36 @@ public class age {
 
         // output.println(estBissextile(2000));
         // output.println(jourMois(1, 2001));
+        deviner_2();
+    }
+    public static void carre_magique_2(){
+
+    }
+    public static void deviner_2(){
+        // int nb_random = Math.random()*1000;
+        int nb_random=(int) (Math.random()*999)+1;
+        int answer=0;
+        while(answer != nb_random){
+            output.println("Entrez un nombre entre 0 et 1000");
+            answer=input.nextInt();
+            if(answer<nb_random){
+                output.println("TropPetit");
+            }
+            else if(answer>nb_random){
+                output.println("TropGrand");
+            }
+            else{
+                output.println("Gagné !");
+            }
+        }
+    }
+    public static char civilite_2(){
+        char answer;
+        do{
+            output.println("Etes-vous un homme ou une femme ? \nEntrez 'H' ou 'F' :");
+            answer=input.nextLine().toUpperCase().charAt(0);
+        } while(answer!='H' && answer != 'F');
+        return answer;
     }
 
     public static String jourMois(int jour, int annee){
