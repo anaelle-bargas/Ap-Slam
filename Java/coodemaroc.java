@@ -20,8 +20,77 @@ public class coodemaroc {
         // bonjour10fois();
         // output.println((somme_jusqu_a(10)));
         // table_nb(178);
-        output.println((stock_values()));
+        // output.println((stock_values()));
+        // output.println((moy10()));
+        // maxint();
+        // output.println(nb_occurences());
+        tri_tableau();
 
+
+
+    }
+
+    public static void tri_tableau(){
+        int[] entiers=new int[10];
+        for(int i=0; i<10;i++){
+            output.println("Saisi l'entier numéro "+(i+1));
+            entiers[i]=input.nextInt();
+        }
+        int max =entiers[0];
+        int i_max=0;
+        for(int j=0;j<10;j++){
+            if(max<entiers[j]){
+                max=entiers[j];
+                i_max=j;
+            }
+        }
+        entiers[i_max]=entiers[9];
+        entiers[9]=max;
+        for(int g=0;g<10;g++){
+            output.println(entiers[g]);
+            
+        }
+    }
+
+    public static int nb_occurences(){
+        int nb_occ = 0;
+        int[] entiers= new int[10];
+        for(int i=0;i<10;i++){
+            output.println("Saisi l'entier numéro "+(i+1));
+            entiers[i] = input.nextInt();
+        }
+        output.println("Nb d'occurrence de quel int ?");
+        int n=input.nextInt();
+        for(int j=0;j<10;j++){
+            if(entiers[j]==n){
+                nb_occ++;
+            }
+        }
+        return nb_occ;
+    }
+
+    public static void maxint(){
+        int max=0;
+        for(int i=0;i<10;i++){
+            output.println("Saisi l'entier numéro "+(i+1));
+            int entree=input.nextInt();
+            if(i==0){
+                max=entree;
+            }
+            else if(max<entree){
+                max=entree;
+            }
+        }
+        output.println(max);
+    }
+
+    public static float moy10(){
+        float somme = 0;
+        for(int i=0; i<10;i++){
+            output.println("Saisi la note no "+(i+1));
+            somme+=input.nextFloat();
+        }
+        return somme/10;
 
     }
 
