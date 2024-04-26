@@ -1,6 +1,5 @@
 import java.io.PrintStream;
-import java.util.*;
-import java.lang.*;
+import java.util.Scanner;
 public class coodemaroc {
     public static PrintStream output = new PrintStream(System.out);
     public static Scanner input = new Scanner(System.in);
@@ -20,8 +19,35 @@ public class coodemaroc {
         // bonjour10fois();
         // output.println((somme_jusqu_a(10)));
         // table_nb(178);
-        output.println((stock_values()));
+        tri_tableau();
 
+    }
+
+    public static void tri_tableau(){
+        int[] entiers = new int[10];
+        for(int i=0;i<10;i++){
+            output.println("Saisi l'entier numéro "+(i+1));
+            entiers[i]=input.nextInt();
+        }
+
+        int j=10;
+        while(j>0){
+            int max=entiers[0];
+            int indice_max=0;
+            for(int i=0;i<j;i++){
+                if(max<entiers[i]){
+                    max=entiers[i];
+                    indice_max=i;
+                }
+            }
+            entiers[indice_max]=entiers[j-1];
+            entiers[j-1]=max;
+            j--;
+        }
+
+        for(int i=0;i<10;i++){
+            output.println(entiers[i]);
+        }
 
     }
 
