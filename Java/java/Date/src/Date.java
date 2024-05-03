@@ -1,13 +1,15 @@
 import java.util.*;
 import java.io.*;
 
-public class Date {
+public class Date implements Comparable<Date>{
     private int jour;
     private int mois;
     private int annee;
-
+    
     public static PrintStream o = new PrintStream(System.out);
     public static Scanner i = new Scanner(System.in);
+    
+
     public Date(int jour, int mois, int annee){
         this.setAnnee(annee);
         this.setMois(mois);
@@ -49,6 +51,10 @@ public class Date {
         }
     }
     
+    public int compareTo(Date d){
+        return this.comparer(d);
+    }
+
     public int getAnnee(){
         return this.annee;
     }
@@ -86,11 +92,11 @@ public class Date {
         }
     }
 
-    public void afficher(){
-        o.println(""+this.nomJourSemaine()+" "+this.getJour()+" "+this.nomMois()+" "+this.getAnnee());
+    public String toString(){
         if(this == this.jourdeLan()){
             o.println("C'est le 1er jour de l'année");
         }
+        return ""+this.nomJourSemaine()+" "+(this.getJour()<=9?"0"+this.getJour():this.getJour())+" "+this.nomMois()+" "+this.getAnnee();
     }
 
     public Date jourdeLan(){
