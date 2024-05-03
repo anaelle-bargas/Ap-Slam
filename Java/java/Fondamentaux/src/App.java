@@ -20,16 +20,15 @@ public class App {
         int[][] cm = {{8, 1, 6}, {3, 5, 7}, {4, 9, 2}};
         o.println("CarreMagique :"+carreMagique(cm));
 
-        int[] t = {1, 2, 3, 4};
+        int[] t = {1, 2, 3, 4, 5};
         inverser(t);
     }
 
     public static int[] inverser(int[] t){
-        for(int i=0;i<t.length;i++){
+        for(int i=0;i<=t.length/2;i++){
             int elem = t[i];
             t[i] = t[t.length-i-1];
             t[t.length-i-1] = elem;
-            o.println(t[i]);
         }
         for(int i=0;i<t.length;i++){
             o.println(t[i]);
