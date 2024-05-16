@@ -53,51 +53,73 @@ public class Jeu {
         this.partie=0;
         // Commencer la partie
         gestionJeu();
-    
+        
     }
-
+    
     public void gestionJeu(){
         int colonneChoisie;
         int i=0;
         Adversaire j;
-
+        String [][] grille = this.getGrille().getGrille();
+        
         do{
             // Tour de quel joueur
             j=actuelJoueur();
             // Partie
-            colonneChoisie = partie(j);
+            colonneChoisie = partie(j, grille);
             i++;
-        }while(!estGagne(colonneChoisie, j));
+        }while(!estGagne(colonneChoisie, j, grille));
     }
+    
+    public int partie(Adversaire j, String[][] grille){
+        o.println("\n---------------"+j.getPrenom()+"---------------");
+        o.println(this.getGrille());
+        int colonne;
+        do{
+            o.println("Dans quelle colonne souhaitez-vous placer votre pion ? Inscrivez un nombre entre 1 et 7 inclus");
+            colonne = i.nextInt();
+            
+            while(this.getLigne(grille, colonne)>5){
+                o.println("La colonne est déjà remplie, choisissez un autre chiffre entre 1 et 7");
+                colonne = i.nextInt();
+            }
+            System.out.println("getLigne"+ this.getLigne(grille, colonne));
+        }while(colonne <1 || colonne >7);
+        return colonne;
 
+    }
     
     public int getLigne(String[][] grille, int colonne){
-        int ligne= 0;
-        while(grille[grille.length-ligne-1][colonne-1]!="0"){
-            System.out.println("grille[ligne][colonne]" + grille[ligne][colonne]);
-            System.out.println("ligne" + ligne);
-            ligne++;
+        int ligne = grille.length;
+        boolean limite=grille[ligne-1][colonne]!="0";
+        while(!limite && grille[ligne-1][colonne]=="0"){
+            ligne--;
+            if(ligne==1) limite = true;
+            System.out.println("ligne :"+ligne);
         }
-        return ligne;
+
+        return grille.length-ligne;
     }
     
-    
-        public Adversaire actuelJoueur(){
-            if(this.partie%2==0){
-                this.partie++;
-                return  this.getJoueur();
-            }
-            else{
-                this.partie++; 
-                return this.getAdversaire();
-            } 
+    public Adversaire actuelJoueur(){
+        if(this.partie%2==0){
+            this.partie++;
+            return  this.getJoueur();
         }
+        else{
+            this.partie++; 
+            return this.getAdversaire();
+        } 
+    }
+
+
     
-    public boolean estGagne(int colonne, Adversaire j){
-        String [][] grille = this.getGrille().getGrille();
+    public boolean estGagne(int colonne, Adversaire j, String[][] grille){
+       
         int ligne = this.getLigne(grille, colonne);
+        System.out.println("ligne = "+ligne);
         
-        this.getGrille().updateGrille(j.getPion(), ligne-1, colonne-1);
+        this.getGrille().updateGrille(j.getPion(), ligne, colonne-1);
         
         for(int i=0;i<5;i++){
             for(int k=0;k<7;k++){
@@ -125,21 +147,6 @@ public class Jeu {
 
 
 
-    public int partie(Adversaire j, String[][] grille){
-        o.println("\n---------------"+j.getPrenom()+"---------------");
-        o.println(this.getGrille());
-        int colonne;
-        do{
-            o.println("Dans quelle colonne souhaitez-vous placer votre pion ? Inscrivez un nombre entre 1 et 7 inclus");
-            colonne = i.nextInt();
-            while(this.getLigne(grille, colonne)<6){
-                o.println("La colonne est déjà remplie, choisissez un autre chiffre");
-                colonne = i.nextInt();
-            }
-        }while(colonne <1 || colonne >7);
-        return colonne;
-
-    }
 
     public Adversaire getJoueur(){
         return this.joueur;
@@ -152,13 +159,6 @@ public class Jeu {
     public Grille getGrille(){
         return this.grille;
     }
-    // public Humain getJoueurHumain(){
-    //     return this.joueurHumain;
-    // }
-
-    // public Machine getJoueurMachine(){
-    //     return this.joueurMachine;
-    // }
 
 
 
