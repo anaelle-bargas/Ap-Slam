@@ -13,43 +13,44 @@ public class Jeu {
     private Adversaire joueur;
     private String vainqueur;
     private Grille grille;
+    private int partie;
 
     
 
     public Jeu(){
 
-        // Demander les paramètres du jeu
+        // PARAMETRES DE JEU
 
+        // Prenom du joueur principal
         o.println("Quel est votre prénom ?");
         String answer1 = i.nextLine();
         this.joueur = new Adversaire("H", answer1, "*");
         String answer2;
+
+        // Adversaire humain ou machine
         do{
             o.println("Souhaitez vous jouer avec un autre humain, ou avec la machine ? H pour humain, M pour machine");
             answer2 = i.nextLine().toUpperCase();
         }
         while(!answer2.equals("H") && !answer2.equals("M"));
         
-
+        // Prenom de l'adversaire
         o.println("Quel est son prénom ?");
         String answer3 = i.nextLine();
 
         if(answer2 == "H"){
 
             this.adversaire = new Adversaire("H", answer3, "#");
-            // this.joueurHumain = new Humain(answer3);
         }
         else{
             this.adversaire = new Adversaire("M", answer3, "#");
-            // this.joueurMachine = new Machine(answer3);
         }
 
         o.println("Bon Courage et que le meilleur gagne !");
 
-
         this.vainqueur = "";
         this.grille = new Grille();
-
+        this.partie=0;
         // Commencer la partie
         gestionJeu();
     
@@ -59,25 +60,44 @@ public class Jeu {
         int colonneChoisie;
         int i=0;
         Adversaire j;
+
         do{
-            if(i%2==0){
-                j = this.getJoueur();
-            }
-            else{
-                j = this.getAdversaire();
-            }
+            // Tour de quel joueur
+            j=actuelJoueur();
+            // Partie
             colonneChoisie = partie(j);
             i++;
         }while(!estGagne(colonneChoisie, j));
     }
 
-    public boolean estGagne(int colonne, Adversaire j){
-        String [][] grille = this.getGrille().getGrille();
-        int ligne = 0;
-        while(grille[ligne][colonne]!="0"){
+    
+    public int getLigne(String[][] grille, int colonne){
+        int ligne= 0;
+        while(grille[grille.length-ligne-1][colonne-1]!="0"){
+            System.out.println("grille[ligne][colonne]" + grille[ligne][colonne]);
+            System.out.println("ligne" + ligne);
             ligne++;
         }
-        this.getGrille().updateGrille(j.getPion(), ligne, colonne);
+        return ligne;
+    }
+    
+    
+        public Adversaire actuelJoueur(){
+            if(this.partie%2==0){
+                this.partie++;
+                return  this.getJoueur();
+            }
+            else{
+                this.partie++; 
+                return this.getAdversaire();
+            } 
+        }
+    
+    public boolean estGagne(int colonne, Adversaire j){
+        String [][] grille = this.getGrille().getGrille();
+        int ligne = this.getLigne(grille, colonne);
+        
+        this.getGrille().updateGrille(j.getPion(), ligne-1, colonne-1);
         
         for(int i=0;i<5;i++){
             for(int k=0;k<7;k++){
@@ -100,18 +120,19 @@ public class Jeu {
                 }
             }
         }
-        return true;
+        return false;
     }
 
 
 
-    public int partie(Adversaire j){
+    public int partie(Adversaire j, String[][] grille){
         o.println("\n---------------"+j.getPrenom()+"---------------");
         o.println(this.getGrille());
         int colonne;
         do{
             o.println("Dans quelle colonne souhaitez-vous placer votre pion ? Inscrivez un nombre entre 1 et 7 inclus");
             colonne = i.nextInt();
+            while(colonne)
         }while(colonne <1 || colonne >7);
         return colonne;
 
