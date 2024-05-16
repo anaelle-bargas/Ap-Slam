@@ -2,9 +2,9 @@ import java.util.*;
 import java.io.*;
 
 public class Date implements Comparable<Date>{
-    private int jour;
-    private int mois;
-    private int annee;
+    protected int jour;
+    protected int mois;
+    protected int annee;
     
     public static PrintStream o = new PrintStream(System.out);
     public static Scanner i = new Scanner(System.in);

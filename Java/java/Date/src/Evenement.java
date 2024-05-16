@@ -1,21 +1,19 @@
 public class Evenement extends Date{
-    private String nomEvenement;
-    private Date date = new Date();
-    public Evenement(Date date, String nomEvenement){
-        super(date.getJour(), date.getMois(), date.getAnnee());
+    protected String nomEvenement;
+    public Evenement(int j, int m, int a, String nomEvenement){
+        super(j, m, a);
         this.nomEvenement = nomEvenement;
+    }
+    @Override
+    public String toString(){
+        return ""+super.toString()+": "+this.nomEvenement;
     }
 
     public String getNomEvenement(){
         return this.nomEvenement;
     }
 
-
-    public String toString(){
-        return super.toString()+": "+this.getNomEvenement();
+    public boolean egale(Evenement e2){
+        return this.nomEvenement == e2.nomEvenement && super.egale(e2);
     }
-
-    public boolean egale(Evenement e){
-        return this.getNomEvenement() == e.getNomEvenement() && super.egale(e);
-    } 
 }
