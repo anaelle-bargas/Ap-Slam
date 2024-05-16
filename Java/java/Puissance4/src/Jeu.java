@@ -132,7 +132,10 @@ public class Jeu {
         do{
             o.println("Dans quelle colonne souhaitez-vous placer votre pion ? Inscrivez un nombre entre 1 et 7 inclus");
             colonne = i.nextInt();
-            while(colonne)
+            while(this.getLigne(grille, colonne)<6){
+                o.println("La colonne est déjà remplie, choisissez un autre chiffre");
+                colonne = i.nextInt();
+            }
         }while(colonne <1 || colonne >7);
         return colonne;
 
