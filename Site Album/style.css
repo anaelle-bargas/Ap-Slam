@@ -51,15 +51,24 @@ h1{
     background-color: #6f62506b;
 }
 
+#contPhotos{
+    height:75vh;
+    background-color: #6f625067;
+}
+
 #photos{
-    background-color: #6f62506b;
-    height:100vh;
+    display: flex;
+    flex-flow: wrap;
+    align-items: center;
 }
 
 #photos>img{
     height: 15vh;
     width:auto;
-    margin:2%;
+    padding:2%;
+}
+#photos>img:hover{
+    background-color:#534a3d79 !important ;
 }
 #plus{
     background-image: url("./images/plus\ \(1\).png");
@@ -73,6 +82,20 @@ h1{
 #plus:hover {
 
     background-image: url("./images/plus.png");
+}
+
+#del{
+    background-image: url("./images/poubelle.png");
+    background-size: contain;
+    width: 33px; /* Largeur souhaitée */
+    height: 29px;
+    background-repeat: no-repeat;
+    margin-left: 0.2%;
+    cursor: pointer;
+}
+#del:hover{
+    background-image: url("./images/poubelle\ \(1\).png");
+
 }
 
 #fen_form{
@@ -90,13 +113,14 @@ h1{
 }
 
 #fen_form>form{
-    padding:20px;
+    padding: 20px;
     background-color: white;
     border-radius: 5px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     flex-direction: column;
+    height: 50vh;
 }
 
 h3{
@@ -110,9 +134,39 @@ h3{
     border-radius: 5px;
     border: none;
     text-align: center;
-    background-color: #bbb5a8;
+    background-color: #dbd3c1;
+}
+#fen_form>form>div{
+    height: 35vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    overflow-y: auto;
+    justify-content: flex-start;
+    align-items: baseline;
+    font-size: 15pt;
+}
+#fen_form>form>div>label>img{
+    height : 15vh;
 }
 
 #valider{
     background-color: #6f6250;
 }
+#valider:hover{
+    background-color: #534a3d;
+    color:white;
+}
+
+input{
+    border-color:#cf790000;
+}
+p{
+    color: white;
+    font-size: large;
+}
+/* 
+#add{
+    height:50px !important;
+    width:50px !important;
+} */
