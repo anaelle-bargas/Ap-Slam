@@ -2,7 +2,7 @@
 import java.util.*;
 import java.io.*;
 
-public class Jeu {
+public class Jeu extends Grille{
     public static PrintStream o = new PrintStream(System.out);
     public static Scanner i = new Scanner(System.in);
     
@@ -18,7 +18,7 @@ public class Jeu {
     
 
     public Jeu(){
-
+        super();
         // PARAMETRES DE JEU
 
         // Prenom du joueur principal
@@ -37,12 +37,16 @@ public class Jeu {
         // Prenom de l'adversaire
         o.println("Quel est son prénom ?");
         String answer3 = i.nextLine();
+        System.out.println(answer2);
 
-        if(answer2 == "H"){
-
+        System.out.println(answer2=="H");
+        if(answer2.equals("H")){
+            System.out.println("huamn");
             this.adversaire = new Adversaire("H", answer3, "#");
         }
         else{
+            System.out.println("machine");
+
             this.adversaire = new Adversaire("M", answer3, "#");
         }
 
@@ -60,46 +64,38 @@ public class Jeu {
         int colonneChoisie;
         int i=0;
         Adversaire j;
-        String [][] grille = this.getGrille().getGrille();
+        String [][] grille = this.getGrille();
         
         do{
             // Tour de quel joueur
             j=actuelJoueur();
             // Partie
-            colonneChoisie = partie(j, grille);
+            colonneChoisie = partie(j);
             i++;
-        }while(!estGagne(colonneChoisie, j, grille));
+        }while(!estGagne(colonneChoisie-1, j));
+        System.out.println(this.grille);
+        this.partie--;
+        this.vainqueur = actuelJoueur().toString();
+        System.out.println("Bravo "+this.vainqueur+" tu as gagné !!!");
     }
     
-    public int partie(Adversaire j, String[][] grille){
+    public int partie(Adversaire j){
         o.println("\n---------------"+j.getPrenom()+"---------------");
-        o.println(this.getGrille());
-        int colonne;
-        do{
-            o.println("Dans quelle colonne souhaitez-vous placer votre pion ? Inscrivez un nombre entre 1 et 7 inclus");
-            colonne = i.nextInt();
-            
-            while(this.getLigne(grille, colonne)>5){
-                o.println("La colonne est déjà remplie, choisissez un autre chiffre entre 1 et 7");
-                colonne = i.nextInt();
-            }
-            System.out.println("getLigne"+ this.getLigne(grille, colonne));
-        }while(colonne <1 || colonne >7);
-        return colonne;
+        o.println(this.grille);
+        return j.choisirColonne(this);
 
     }
     
-    public int getLigne(String[][] grille, int colonne){
-        int ligne = grille.length;
-        boolean limite=grille[ligne-1][colonne]!="0";
-        while(!limite && grille[ligne-1][colonne]=="0"){
-            ligne--;
-            if(ligne==1) limite = true;
-            System.out.println("ligne :"+ligne);
+    public int getLigne(int colonne){
+        String[][] grille =this.grille.getGrille();
+        int ligne = 0;
+        while(ligne <=(grille.length-1) && grille[ligne][colonne]=="0"){
+            ligne++;
         }
-
-        return grille.length-ligne;
+        return ligne-1;
     }
+
+
     
     public Adversaire actuelJoueur(){
         if(this.partie%2==0){
@@ -114,39 +110,101 @@ public class Jeu {
 
 
     
-    public boolean estGagne(int colonne, Adversaire j, String[][] grille){
-       
-        int ligne = this.getLigne(grille, colonne);
-        System.out.println("ligne = "+ligne);
-        
-        this.getGrille().updateGrille(j.getPion(), ligne, colonne-1);
-        
-        for(int i=0;i<5;i++){
-            for(int k=0;k<7;k++){
-                if(grille[i][k]==j.getPion()){
+    public boolean estGagne(int colonne, Adversaire j){
+        int ligne = this.getLigne(colonne);        
+        this.grille.updateGrille(j.getPion(), ligne, colonne);
+        return gagneHorizontale(ligne, colonne, j) || gagneVerticale(ligne, colonne, j) || gagneDiagonale(ligne, colonne, j);
+    }
 
-                    // vérifier qu'il n'y a pas 4 pions consécutifs
+    public boolean gagneDiagonale(int ligne, int colonne, Adversaire j){
+        int compteurDiagonale1 = 0;
+        int compteurDiagonale2 = 0;
+        String[][] grille = this.grille.getGrille();
+        int i=ligne;
+        int k=colonne;
 
-                    //en ligne
-                    if(i <=2){
-                        if(grille[i][k]==j.getPion() && grille[i+1][k]==j.getPion() && grille[i+2][k]==j.getPion() && grille[i+3][k]==j.getPion()){
-                            return true;
-                        }
-                    }
-                    //TODO : en colonne 
-                    if(i <=2){
-                        if(grille[i][k]==j.getPion() && grille[i+1][k]==j.getPion() && grille[i+2][k]==j.getPion() && grille[i+3][k]==j.getPion()){
-                            return true;
-                        }
-                    }
-                }
-            }
+        //en bas a droite
+        while(i<6 && k<7 && grille[i][k]==j.getPion()){
+            compteurDiagonale1++;
+            i++;
+            k++;
         }
-        return false;
+
+        //en bas a gauche
+        i=ligne+1;
+        k=colonne-1;
+        while(i<6 && k>=0 && grille[i][k]==j.getPion()){
+            compteurDiagonale2++;
+            i++;
+            k--;
+        }
+
+        //en haut a droite
+        i=ligne-1;
+        k=colonne+1;
+        while(i>=0 && k<7 && grille[i][k]==j.getPion()){
+            compteurDiagonale2++;
+            i--;
+            k++;
+        }
+
+        //en haut a gauche
+        i=ligne-1;
+        k=colonne-1;
+        while(i>=0 && k>=0 && grille[i][k]==j.getPion()){
+            compteurDiagonale1++;
+            i--;
+            k--;
+        }
+
+        return compteurDiagonale2>=4 || compteurDiagonale1>=4;
     }
 
 
+    public boolean gagneVerticale(int ligne, int colonne, Adversaire j){
 
+        int compteur = 0;
+        String[][] grille = this.grille.getGrille();
+        int i=ligne;
+
+        //en bas
+        while(i<6 && grille[i][colonne]==j.getPion()){
+            compteur++;
+            i++;
+        }
+
+        //en haut
+        i=ligne-1;
+        while(i>=0 && grille[i][colonne]==j.getPion()){
+            compteur++;
+            i--;
+        }
+
+        return compteur>=4;
+    }
+
+
+    public boolean gagneHorizontale(int ligne, int colonne, Adversaire j){
+
+        int compteur = 0;
+        String[][] grille = this.grille.getGrille();
+        int i=colonne;
+
+        //a droite
+        while(i<7 && grille[ligne][i]==j.getPion()){
+            compteur++;
+            i++;
+        }
+
+        //a gauche
+        i=(colonne-1);
+        while(i>=0 && grille[ligne][i]==j.getPion()){
+            compteur++;
+            i--;
+        }
+            
+        return compteur>=4;
+    }
 
     public Adversaire getJoueur(){
         return this.joueur;
@@ -156,8 +214,8 @@ public class Jeu {
         return this.adversaire;
     }
 
-    public Grille getGrille(){
-        return this.grille;
+    public String getVainqueur(){
+        return this.vainqueur;
     }
 
 
