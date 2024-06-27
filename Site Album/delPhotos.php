@@ -21,6 +21,6 @@ if(isset($_POST["idPh"]) && isset($_POST["idAlb"])){
                 $delComporter = $connexion -> query($requeteDelComporter);
             }
         }
-        header("location:index.php?id=1");
+        header("location:index.php?id=".$_POST["idAlb"]);
     }
 }

@@ -67,9 +67,7 @@ h1{
     width:auto;
     padding:2%;
 }
-#photos>img:hover{
-    background-color:#534a3d79 !important ;
-}
+
 #plus{
     background-image: url("./images/plus\ \(1\).png");
     background-size: contain;

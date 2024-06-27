@@ -1,9 +1,9 @@
 <?php
 // Paramètres de la base de données
-$serveur = "127.0.0.1";
+$serveur = "dev.local";
 $utilisateur = "root";
 $motDePasse = "";
-$baseDeDonnees = "album photo bargas anaelle";
+$baseDeDonnees = "Albums";
 
 // Connexion à la base de données
 $connexion = new mysqli($serveur, $utilisateur, $motDePasse, $baseDeDonnees);

@@ -113,7 +113,7 @@ $connexion->close();
             <div id="photos" style=<?=$noPhotos?"display:flex;justify-content:center":""?>>
                 <?php
                     for($i=0;$i<count($nomPhs);$i++){
-                        echo "<img src='./photos/$nomPhs[$i]' id = '$nomPhs[$i]' onclick = 'imgCliquee(this.id)'>";
+                        echo "<img src='./photos/$nomPhs[$i]' id = '$nomPhs[$i]'>";
                     }
                 ?>
                 <p style="display:<?=$noPhotos?"flex":"none"?>">Aucune photos n'a été trouvée   <br></p>
@@ -135,7 +135,7 @@ $connexion->close();
             <input type="file" id="fichier" name="fichier" accept=".png">
             <input type="submit" value="Valider" id="valider">
         </form>
-        <form action="delAlb.php" method="POST" style="display:<?=$delAlb?"flex":"none"?>" enctype="multipart/form-data">
+        <form action="delAlb.php" method="GET" style="display:<?=$delAlb?"flex":"none"?>" enctype="multipart/form-data" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ces albums ?')">
             <h3>Albums à suprimer</h3>
             <div>
             <?php
@@ -147,7 +147,7 @@ $connexion->close();
             </div>
             <input type="submit" value="Valider" id="valider">
         </form>
-        <form action="delPhotos.php" method="POST" style="display:<?=$delP?"flex":"none"?>" enctype="multipart/form-data">
+        <form action="delPhotos.php" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ces photos ?')" style="display:<?=$delP?"flex":"none"?>" enctype="multipart/form-data">
             <h3>Albums à suprimer</h3>
             <div>
 
