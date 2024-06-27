@@ -168,3 +168,11 @@ p{
     height:50px !important;
     width:50px !important;
 } */
+
+#croix{
+    height: 2%;
+    position: absolute;
+    right: 2%;
+    top: 2%;
+    cursor:pointer;
+}

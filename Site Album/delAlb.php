@@ -70,8 +70,8 @@ if(isset($_GET["idAlb"])){
                     echo "Erreur lors de la sélection des photos: " . $connexion->error;
                 }
                 //supression des éléments concernant l'album dans la table comporter.
-                // $requeteDelComporter = "DELETE FROM comporter WHERE idAlb = ".$alb;
-                // $delComporter = $connexion -> query($requeteDelComporter);
+                $requeteDelComporter = "DELETE FROM comporter WHERE idAlb = ".$alb;
+                $delComporter = $connexion -> query($requeteDelComporter);
 
 
                 //supression des albums.

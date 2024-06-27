@@ -25,7 +25,7 @@ if ($nomAlb_recupere->num_rows > 0) {
 if(isset($_GET["id"])){
     if(!empty($_GET["id"])){
 
-        $requetePh = "SELECT photos.idPh, photos.nomPh FROM photos JOIN comporter ON photos.idPh = comporter.idPh WHERE comporter.idAlb = ".$_GET['id']. ";";
+        $requetePh = "SELECT photos.idPh, photos.nomPh FROM photos JOIN comporter ON photos.idPh = comporter.idPh WHERE comporter.idAlb = ".$_GET['id']. " AND photos.visible=1;";
         
         $Ph_recupere = $connexion->query($requetePh);
     
@@ -60,24 +60,7 @@ $addP = isset($_GET["add"])?($_GET["add"]=="p"?true:false):false;
 $del = isset($_GET["del"])?($_GET["del"]=="y"||$_GET["del"]=="p"?true:false):false;
 $delAlb = isset($_GET["del"])?($_GET["del"]=="y"?true:false):false;
 $delP = isset($_GET["del"])?($_GET["del"]=="p"?true:false):false;
-// Requête SQL
-// $requeteAlb = "SELECT idAlb, nomAlb FROM albums";
-// $nomAlb_recupere = $connexion->query($requeteAlb);
 
-// $idAlbs=array();
-// $nomAlbs=array();
-
-// // Vérification du résultat de la requête
-// if ($nomAlb_recupere->num_rows > 0) {
-//     // Affichage des données
-//     while ($ligne = $nomAlb_recupere->fetch_assoc()) {
-//         $idAlbs[]=$ligne["idAlb"];
-//         $nomAlbs[]=$ligne["nomAlb"];
-
-//     }
-// } else {
-//     echo "Aucun résultat trouvé";
-// }
 
 
 
@@ -105,6 +88,7 @@ $connexion->close();
             }
             echo "<a id='plus' href='index.php?id=".$_GET['id']."&add=y'></a>";
             echo "<a id='del' href='index.php?id=".$_GET['id']."&del=y'></a>";
+            echo "<a id='corbeille' href='corbeille.php'>Corbeille</a>";
             ?>
             
         </div>
@@ -124,6 +108,7 @@ $connexion->close();
     </div>
 
     <div id="fen_form" style="display:<?=$add || $del?"flex":"none"?>">
+        <img src="./images/fermer.png" alt=""  onclick="page(<?php echo $_GET['id']?>)" id="croix">
         <form action="addAlbum.php" method="POST"  style="display:<?=$addAlb?"flex":"none"?>">
             <h3>Indiquez le nom de l'album à ajouter</h3>
             <input type="text" name="nomNewAlb" id="nom" placeholder="Nom de l'album">
@@ -147,8 +132,8 @@ $connexion->close();
             </div>
             <input type="submit" value="Valider" id="valider">
         </form>
-        <form action="delPhotos.php" method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ces photos ?')" style="display:<?=$delP?"flex":"none"?>" enctype="multipart/form-data">
-            <h3>Albums à suprimer</h3>
+        <form action="retirerPhotos.php" method="GET" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ces photos ?')" style="display:<?=$delP?"flex":"none"?>" enctype="multipart/form-data">
+            <h3>Photos à suprimer</h3>
             <div>
 
             <?php
