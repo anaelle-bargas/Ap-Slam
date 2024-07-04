@@ -1,6 +1,9 @@
 <?php
 include "./connexionBdd.php";
-
+session_start();
+if($_SESSION["adm"]!=1){
+    header("location:index.php");
+}
 $requetePh = "SELECT idPh, nomPh FROM photos WHERE visible=0;";
         
 $Ph_recupere = $connexion->query($requetePh);

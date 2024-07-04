@@ -1,6 +1,6 @@
 <?php
 // Paramètres de la base de données
-$serveur = "dev.local";
+$serveur = "localhost";
 $utilisateur = "root";
 $motDePasse = "";
 $baseDeDonnees = "Albums";

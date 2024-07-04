@@ -1,8 +1,16 @@
 <?php
-
+session_start();
 include "connexionBdd.php";
 
-
+if(!isset($_SESSION["logged"])){
+    include "deconnexion.php";
+}
+else if(empty($_SESSION["logged"])){
+    include "deconnexion.php";
+}
+else if($_SESSION["logged"]==false){
+    include "deconnexion.php";
+}
 $requeteAlb = "SELECT idAlb, nomAlb FROM albums";
 $nomAlb_recupere = $connexion->query($requeteAlb);
 
@@ -88,7 +96,9 @@ $connexion->close();
             }
             echo "<a id='plus' href='index.php?id=".$_GET['id']."&add=y'></a>";
             echo "<a id='del' href='index.php?id=".$_GET['id']."&del=y'></a>";
-            echo "<a id='corbeille' href='corbeille.php'>Corbeille</a>";
+            if($_SESSION["adm"]==1){
+                echo "<a id='corbeille' href='corbeille.php'>Corbeille</a>";
+            }
             ?>
             
         </div>
@@ -147,6 +157,8 @@ $connexion->close();
         </form>
         
     </div>
-
+    <form action="deconnexion.php" method="post">
+        <button type="submit">Se déconnecter</button>
+    </form>
 </body>
 </html>
